@@ -1,0 +1,58 @@
+---
+
+- name: install unattended-upgrades
+  apt:
+    name: unattended-upgrades
+    state: latest
+
+- name: run unattended-upgrades
+  command: |
+    unattended-upgrades
+
+- name: run unattended-upgrades on a cron
+  cron:
+    name: "daily apt package security updates"
+    minute: "0"
+    hour: "0"
+    job: "unattended-upgrades"
+    user: root
+
+- name: add the necessary apt keys from keyservers
+  apt_key:
+    keyserver: "{{ item.keyserver }}"
+    id: "{{ item.id }}"
+  with_items: "{{ keyservers_to_add }}"
+
+- name: add necessary additional apt repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ apt_repositories_to_add }}"
+
+- name: install the desired packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ packages_to_install }}"
+
+# @TODO(mattjmcnaughton) Do some form of caching.
+- name: install the desired debs
+  apt:
+    deb: "{{ item }}"
+  with_items: "{{ debs_to_install }}"
+
+- name: uninstall the desired packages
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ packages_to_uninstall }}"
+
+# @TODO(mattjmcnaughton) Determine a way to remove manually installed debs.
+
+- name: remove useless packages from cache
+  apt:
+    autoclean: yes
+
+- name: remove no longer required dependencies
+  apt:
+    autoremove: yes

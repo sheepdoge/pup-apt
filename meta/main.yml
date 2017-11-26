@@ -1,0 +1,21 @@
+galaxy_info:
+  author: mattjmcnaughton
+  description: A pup for apt configuration.
+
+  license: Apache
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - sheepdoge
+    - apt
+
+dependencies: []
