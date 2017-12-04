@@ -7,7 +7,7 @@ test::check_syntax() {
 }
 
 test::run_ansible() {
-  ansible-playbook playbook.yml -i 'localhost' -e '{"keyservers_to_add": [{"keyserver": "keyserver.ubuntu.com", "id": "0DF731E45CE24F27EEEB1450EFDC8610341D9410"}], "apt_repositories_to_add": ["deb http://repository.spotify.com stable non-free"], "packages_to_install": ["i3", "spotify-client"], "debs_to_install": ["https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.2-amd64.deb"], "packages_to_uninstall": ["git"]}'
+  ansible-playbook playbook.yml -i 'localhost' -e '{"keyservers_to_add": [{"keyserver": "keyserver.ubuntu.com", "id": "0DF731E45CE24F27EEEB1450EFDC8610341D9410"}, { "url": "https://download.docker.com/linux/ubuntu/gpg" }], "apt_repositories_to_add": ["deb http://repository.spotify.com stable non-free"], "packages_to_install": ["i3", "spotify-client"], "debs_to_install": ["https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.2-amd64.deb"], "packages_to_uninstall": ["git"]}'
 }
 
 test::assert_output() {

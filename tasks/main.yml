@@ -26,6 +26,13 @@
     apt_key:
       keyserver: "{{ item.keyserver }}"
       id: "{{ item.id }}"
+    when: item.keyserver is defined
+    with_items: "{{ keyservers_to_add }}"
+
+  - name: add the necessary apt keys from urls
+    apt_key:
+      url: "{{ item.url }}"
+    when: item.url is defined
     with_items: "{{ keyservers_to_add }}"
 
   - name: add necessary additional apt repositories
