@@ -1,0 +1,15 @@
+---
+# Installing debs by downloading them from a remote url is very expensive, so we
+# want to avoid it if possible. If we have to do it, make sure we only do it
+# when the deb doesn't already exist (because the `deb` ansible command
+# downloads the .deb regardless).
+- name: check if deb already installed
+  command: "which {{ item.created_bin }}"
+  register: deb_is_installed
+  failed_when: deb_is_installed.rc > 1
+  changed_when: no
+
+- name: install deb
+  apt:
+    deb: "{{ item.deb_url }}"
+  when: deb_is_installed.rc > 0

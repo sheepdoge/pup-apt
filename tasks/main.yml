@@ -47,10 +47,8 @@
       state: latest
     with_items: "{{ packages_to_install }}"
 
-  # @TODO(mattjmcnaughton) Do some form of caching.
   - name: install the desired debs
-    apt:
-      deb: "{{ item }}"
+    include: "install_deb.yml"
     with_items: "{{ debs_to_install }}"
 
   - name: uninstall the desired packages
