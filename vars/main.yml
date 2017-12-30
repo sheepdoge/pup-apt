@@ -1,6 +1,6 @@
 ---
-keyservers_to_add: "{{ pup_apt_vars_keyservers_to_add }}"
-apt_repositories_to_add: "{{ pup_apt_vars_apt_repositories_to_add }}"
-packages_to_install: "{{ pup_apt_vars_packages_to_install }}"
-debs_to_install: "{{ pup_apt_vars_debs_to_install }}"
-packages_to_uninstall: "{{ pup_apt_vars_packages_to_uninstall }}"
+keyservers_to_add: "{{ pup_apt_main_keyservers_to_add }}"
+apt_repositories_to_add: "{{ pup_apt_main_apt_repositories_to_add }}"
+packages_to_install: "{{ pup_apt_main_packages_to_install }}"
+debs_to_install: "{{ pup_apt_main_debs_to_install }}"
+packages_to_uninstall: "{{ pup_apt_main_packages_to_uninstall }}"
