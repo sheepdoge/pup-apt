@@ -10,10 +10,6 @@
       name: unattended-upgrades
       state: latest
 
-  - name: run unattended-upgrades
-    command: |
-      unattended-upgrades
-
   - name: run unattended-upgrades on a cron
     cron:
       name: "daily apt package security updates"
@@ -66,4 +62,13 @@
   - name: remove no longer required dependencies
     apt:
       autoremove: yes
+
+  - name: run apt autoremove on cron
+    cron:
+      name: "daily apt autoremove"
+      minute: "0"
+      hour: "12"
+      job: "apt autoremove -y"
+      user: root
+
   become: true
