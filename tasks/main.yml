@@ -15,7 +15,7 @@
       name: "daily apt package security updates"
       minute: "0"
       hour: "0"
-      job: "unattended-upgrades"
+      job: "apt update && unattended-upgrade"
       user: root
 
   - name: add the necessary apt keys from keyservers
