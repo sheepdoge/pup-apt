@@ -1,6 +1,6 @@
 ---
 - block:
-  - name:
+  - name: update apt cache
     apt:
       update_cache: yes
       cache_valid_time: 3600
@@ -36,6 +36,12 @@
       repo: "{{ item }}"
       state: present
     with_items: "{{ apt_repositories_to_add }}"
+    register: add_apt_repositories_result
+
+  - name: update cache for new repos
+    apt:
+      update_cache: yes
+    when: add_apt_repositories_result.changed
 
   - name: install the desired packages
     apt:
