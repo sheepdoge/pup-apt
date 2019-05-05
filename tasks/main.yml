@@ -1,9 +1,12 @@
 ---
 - block:
+  - name: install the desired debs
+    include: "install_deb.yml"
+    with_items: "{{ debs_to_install }}"
+
   - name: update apt cache
     apt:
       update_cache: yes
-      cache_valid_time: 3600
 
   - name: install unattended-upgrades
     apt:
@@ -49,9 +52,6 @@
       state: latest
     with_items: "{{ packages_to_install }}"
 
-  - name: install the desired debs
-    include: "install_deb.yml"
-    with_items: "{{ debs_to_install }}"
 
   - name: uninstall the desired packages
     apt:
